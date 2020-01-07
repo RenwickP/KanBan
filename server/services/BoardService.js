@@ -36,7 +36,6 @@ class BoardService {
       throw new ApiError("Invalid ID or you do not own this board", 400);
     }
   }
-
 }
 
 

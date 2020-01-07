@@ -11,7 +11,7 @@ let base = window.location.host.includes('localhost:8080') ? '//localhost:3000/'
 
 let api = Axios.create({
   baseURL: base + "api/",
-  timeout: 3000,
+  timeout: 7000,
   withCredentials: true
 })
 
@@ -19,7 +19,8 @@ export default new Vuex.Store({
   state: {
     user: {},
     boards: [],
-    activeBoard: {}
+    activeBoard: {},
+    lists: []
   },
   mutations: {
     setUser(state, user) {
@@ -27,6 +28,13 @@ export default new Vuex.Store({
     },
     setBoards(state, boards) {
       state.boards = boards
+    },
+    setLists(state, list) {
+      state.lists.push(list)
+    },
+
+    listsByBoardId(state, list) {
+      state.lists = list;
     }
   },
   actions: {
@@ -74,14 +82,21 @@ export default new Vuex.Store({
         .then(serverBoard => {
           dispatch('getBoards')
         })
-    }
+    },
     //#endregion
 
 
     //#region -- LISTS --
-
-
-
+    async createList({ commit, dispatch }, newList) {
+      let res = await api.post('lists', newList)
+      commit('setLists', res.data)
+      console.log('returned data:', res.data);
+    },
+    async getListsByBoard({ commit, dispatch }, boardId) {
+      let res = await api.get('boards/' + boardId + '/lists')
+      commit('listsByBoardId', res.data)
+      console.log("getting lists", res.data)
+    }
     //#endregion
   }
 })

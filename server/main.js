@@ -37,8 +37,10 @@ server.use('/account', new UserController().router)
 
 //YOUR ROUTES HERE!!!!!!
 import BoardController from './controllers/BoardController'
+import ListsController from './controllers/ListsController'
 
 server.use('/api/boards', new BoardController().router)
+server.use('/api/lists', new ListsController().router)
 
 
 
