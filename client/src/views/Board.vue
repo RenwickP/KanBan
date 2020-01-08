@@ -28,13 +28,6 @@ export default {
         title: "",
         authorId: this.$store.state.user._id,
         boardId: this.$props.boardId
-      },
-      task: {
-        description: "",
-        listId: "",
-        authorId: this.$store.state.user._id,
-        boardId: this.$props.boardId,
-        comments: []
       }
     };
   },

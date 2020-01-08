@@ -20,14 +20,16 @@ export default new Vuex.Store({
     user: {},
     boards: [],
     activeBoard: {},
-    lists: []
+    lists: [],
+    tasks: []
   },
   mutations: {
     resetState(state) {
       state.user = {},
         state.boards = [],
         state.activeBoard = {},
-        state.lists = []
+        state.lists = [],
+        state.tasks = []
     },
     setUser(state, user) {
       state.user = user
@@ -41,6 +43,9 @@ export default new Vuex.Store({
 
     listsByBoardId(state, list) {
       state.lists = list;
+    },
+    setTasks(state, newTask) {
+      state.tasks.push(newTask)
     }
   },
   actions: {
@@ -111,9 +116,15 @@ export default new Vuex.Store({
     async deleteList({ commit, dispatch }, data) {
       console.log("from store delete", data.boardId)
       await api.delete('lists/' + data.id)
-
       dispatch("getListsByBoard", data.boardId)
 
+    },
+    //#endregion
+
+    //#region -- TASKS --
+    async createTask({ commit, dispatch }, newTask) {
+      let res = await api.post('tasks', newTask)
+      commit('setTasks', res.data)
     }
     //#endregion
   }
