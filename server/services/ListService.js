@@ -12,6 +12,9 @@ class ListService {
     let data = await _repository.find({ boardId: id })
     return data
   }
+  async deleteList(id) {
+    await _repository.findOneAndRemove({ _id: id })
+  }
 }
 
 

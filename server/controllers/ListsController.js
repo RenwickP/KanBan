@@ -6,6 +6,7 @@ export default class ListsController {
   constructor() {
     this.router = express.Router()
       .post('', this.createList)
+      .delete('/:id', this.deleteList)
     // .use(Authorize.authenticated)
     // .delete('/:id', this.delete)
     // .use(this.defaultRoute)
@@ -18,6 +19,14 @@ export default class ListsController {
     try {
       let data = await _listService.createList(req.body)
       return res.status(200).send(data)
+    } catch (error) {
+      next(error)
+    }
+  }
+  async deleteList(req, res, next) {
+    try {
+      await _listService.deleteList(req.params.id)
+      return res.send("deleted")
     } catch (error) {
       next(error)
     }

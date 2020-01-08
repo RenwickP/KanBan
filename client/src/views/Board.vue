@@ -5,23 +5,22 @@
       <input v-model="list.title" type="text" placeholder="List Name" />
       <button class="btn btn-success">Add</button>
     </form>
-    <div v-for="goodList in goodLists" :key="goodList.id">
-      <div class="card" style="width: 18rem;">
-        <div class="card-body">
-          <h5 class="card-title">{{goodList.title}}</h5>
-          <p class="card-text"></p>
-          <button class="btn btn-danger btn-sm">x</button>
-        </div>
-      </div>
+    <div v-for="list in lists" :key="list.id">
+      <List-info :listData="list" />
     </div>
   </div>
 </template>
 
 <script>
+import ListInfo from "@/components/ListInfo";
+
 export default {
   name: "board",
   mounted() {
     this.$store.dispatch("getListsByBoard", this.$props.boardId);
+  },
+  components: {
+    ListInfo
   },
   data() {
     return {
@@ -29,6 +28,13 @@ export default {
         title: "",
         authorId: this.$store.state.user._id,
         boardId: this.$props.boardId
+      },
+      task: {
+        description: "",
+        listId: "",
+        authorId: this.$store.state.user._id,
+        boardId: this.$props.boardId,
+        comments: []
       }
     };
   },
@@ -42,12 +48,26 @@ export default {
         title: ""
       };
     }
+
+    // createTask(createTask) {
+    //   let newTask = { ...this.task };
+    //   this.$store.dispatch("createTask", newTask);
+    //   this.task = {
+    //     description: "",
+    //     listId: this.,
+    //     authorId: this.$store.state.user._id,
+    //     boardId: this.$props.boardId,
+    //     comments: []
+    //   };
+    // }
   },
   computed: {
-    goodLists() {
+    // goodLists() {
+    //   return this.$store.state.lists;
+    // },
+    lists() {
       return this.$store.state.lists;
     },
-
     board() {
       return (
         // this.$store.state.
