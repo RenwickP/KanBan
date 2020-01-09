@@ -6,7 +6,7 @@ export default class TasksController {
   constructor() {
     this.router = express.Router()
       .post('', this.createTask)
-    // .delete('/:id', this.deleteTask)
+      .delete('/:id', this.deleteTask)
 
 
     // .use(Authorize.authenticated)
@@ -25,13 +25,13 @@ export default class TasksController {
       next(error)
     }
   }
-  // async deleteTask(req, res, next) {
-  //   try {
-  //     await _tasksService.deleteTask(req.params.id)
-  //     return res.send("deleted")
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // }
+  async deleteTask(req, res, next) {
+    try {
+      await _tasksService.deleteTask(req.params.id)
+      return res.send("deleted")
+    } catch (error) {
+      next(error)
+    }
+  }
 }
 

@@ -44,12 +44,14 @@ export default new Vuex.Store({
     listsByBoardId(state, list) {
       state.lists = list;
     },
-    setTasks(state, newTask) {
-      console.log("current thing I care about", newTask)
-      // state.tasks.push(newTask)
-      Vue.set(state.tasks, newTask.listData.id, newTask.body)
-      console.log(state.tasks);
+    setTasks(state, payload) {
 
+      // state.tasks.push(payload)
+      Vue.set(state.tasks, payload.listData.id, payload.body)
+    },
+
+    setTask(state, data) {
+      state.tasks.push(data)
     }
   },
   actions: {
@@ -100,7 +102,6 @@ export default new Vuex.Store({
     },
     async deleteBoard({ commit, dispatch }, board) {
       await api.delete('boards/' + board)
-      console.log('from deleteBoard', board);
       dispatch('getBoards')
     },
     //#endregion
@@ -110,12 +111,10 @@ export default new Vuex.Store({
     async createList({ commit, dispatch }, newList) {
       let res = await api.post('lists', newList)
       commit('setLists', res.data)
-      console.log('returned data:', res.data);
     },
     async getListsByBoard({ commit, dispatch }, boardId) {
       let res = await api.get('boards/' + boardId + '/lists')
       commit('listsByBoardId', res.data)
-      console.log("getting lists", res.data)
     },
     async deleteList({ commit, dispatch }, data) {
       console.log("from store delete", data.boardId)
@@ -128,21 +127,19 @@ export default new Vuex.Store({
     //#region -- TASKS --
     async createTask({ commit, dispatch }, newTask) {
       let res = await api.post('tasks', newTask)
-      commit('setTasks', res.data)
+      commit('setTask', res.data)
     },
     async getTasks({ commit, dispatch }, listData) {
-      console.log('From getTasks: ', listData.id);
       let res = await api.get('lists/' + listData.id + '/tasks')
-      console.log("other thing I care about", res.data)
-      let newTask = {
+      let payload = {
         body: res.data,
         listData: listData
       }
-      console.log("create", newTask.listData.id)
-      console.log("2nd create", newTask.body)
-      commit('setTasks', newTask)
-
-      // x.res.data
+      commit('setTasks', payload)
+    },
+    async deleteTask({ commit, dispatch }, taskData) {
+      await api.delete('tasks/' + taskData._id)
+      dispatch('getTasks', { id: taskData.listId })
     }
     //#endregion
   }

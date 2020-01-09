@@ -1,7 +1,9 @@
 <template>
   <div class="task">
-    <button class="btn btn-warning btn-sm">X</button>
-    {{taskData.description}}
+    <p class="style-tasks">
+      <button @click="deleteTask" class="btn btn-warning btn-sm">X</button>
+      {{taskData.description}}
+    </p>
   </div>
 </template>
 
@@ -12,9 +14,16 @@ export default {
   data() {
     return {};
   },
-  methods: {}
+  methods: {
+    deleteTask() {
+      this.$store.dispatch("deleteTask", this.taskData);
+    }
+  }
 };
 </script>
 
 <style>
+.style-tasks {
+  text-align: left;
+}
 </style>
