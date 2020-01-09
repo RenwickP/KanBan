@@ -43,7 +43,6 @@ export default {
     },
     deleteBoard(deleteBoard) {
       this.$store.dispatch("deleteBoard", deleteBoard);
-      console.log("from boards", deleteBoard);
     }
   }
 };

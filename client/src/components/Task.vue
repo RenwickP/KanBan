@@ -1,5 +1,8 @@
 <template>
-  <div class="task"></div>
+  <div class="task">
+    <button class="btn btn-warning btn-sm">X</button>
+    {{taskData.description}}
+  </div>
 </template>
 
 <script>

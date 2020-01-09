@@ -45,7 +45,11 @@ export default new Vuex.Store({
       state.lists = list;
     },
     setTasks(state, newTask) {
-      state.tasks.push(newTask)
+      console.log("current thing I care about", newTask)
+      // state.tasks.push(newTask)
+      Vue.set(state.tasks, newTask.listData.id, newTask.body)
+      console.log(state.tasks);
+
     }
   },
   actions: {
@@ -125,6 +129,20 @@ export default new Vuex.Store({
     async createTask({ commit, dispatch }, newTask) {
       let res = await api.post('tasks', newTask)
       commit('setTasks', res.data)
+    },
+    async getTasks({ commit, dispatch }, listData) {
+      console.log('From getTasks: ', listData.id);
+      let res = await api.get('lists/' + listData.id + '/tasks')
+      console.log("other thing I care about", res.data)
+      let newTask = {
+        body: res.data,
+        listData: listData
+      }
+      console.log("create", newTask.listData.id)
+      console.log("2nd create", newTask.body)
+      commit('setTasks', newTask)
+
+      // x.res.data
     }
     //#endregion
   }

@@ -25,13 +25,13 @@ export default class TasksController {
       next(error)
     }
   }
-  async deleteTask(req, res, next) {
-    try {
-      await _tasksService.deleteTask(req.params.id)
-      return res.send("deleted")
-    } catch (error) {
-      next(error)
-    }
-  }
+  // async deleteTask(req, res, next) {
+  //   try {
+  //     await _tasksService.deleteTask(req.params.id)
+  //     return res.send("deleted")
+  //   } catch (error) {
+  //     next(error)
+  //   }
+  // }
 }
 

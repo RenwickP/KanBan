@@ -8,6 +8,10 @@ class TasksService {
     let task = await _repository.create(data)
     return task
   }
+  async getTasksByList(id) {
+    let tasks = await _repository.find({ listId: id })
+    return tasks
+  }
 
   // async getTasksByBoardId(id) {
   //   let data = await _repository.find({ boardId: id })

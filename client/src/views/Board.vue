@@ -33,10 +33,8 @@ export default {
   },
   methods: {
     createList() {
-      console.log("this", this.$store.state.user._id);
       let newList = { ...this.list };
       this.$store.dispatch("createList", newList);
-      console.log();
       this.list = {
         title: ""
       };
@@ -57,6 +55,9 @@ export default {
   computed: {
     // goodLists() {
     //   return this.$store.state.lists;
+    // },
+    // tasks() {
+    //   return this.$store.state.tasks;
     // },
     lists() {
       return this.$store.state.lists;

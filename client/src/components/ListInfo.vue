@@ -11,14 +11,25 @@
         <!-- </div> -->
       </div>
       <button @click="deleteList(listData)" class="btn btn-warning">X</button>
+      <div v-for="task in tasks" :key="task.id">
+        <task :taskData="task" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import task from "@/components/Task";
+
 export default {
   name: "ListInfo",
   props: ["listData"],
+  components: {
+    task
+  },
+  mounted() {
+    return this.$store.dispatch("getTasks", this.listData);
+  },
   data() {
     return {
       task: {
@@ -32,17 +43,12 @@ export default {
   },
   methods: {
     deleteList(data) {
-      console.log("from delete", data);
-
       this.$store.dispatch("deleteList", data);
     },
     // task methods
     createTask() {
-      console.log("info getter", this.$props.listData.boardId);
       let newTask = { ...this.task };
       this.$store.dispatch("createTask", newTask);
-      console.log("task creation", newTask);
-
       this.task = {
         description: ""
         // listId: this.$props.listData.id,
@@ -50,6 +56,11 @@ export default {
         // boardId: this.$props.boardId,
         // comments: []
       };
+    }
+  },
+  computed: {
+    tasks() {
+      return this.$store.state.tasks[this.listData.id];
     }
   }
 };
