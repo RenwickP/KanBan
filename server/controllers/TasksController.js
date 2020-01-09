@@ -5,11 +5,11 @@ import _tasksService from "../services/TasksService"
 export default class TasksController {
   constructor() {
     this.router = express.Router()
+      .use(Authorize.authenticated)
       .post('', this.createTask)
       .delete('/:id', this.deleteTask)
 
 
-    // .use(Authorize.authenticated)
     // .delete('/:id', this.delete)
     // .use(this.defaultRoute)
   }

@@ -6,6 +6,7 @@ import _tasksService from "../services/TasksService"
 export default class ListsController {
   constructor() {
     this.router = express.Router()
+      .use(Authorize.authenticated)
       .get('/:id/tasks', this.getTasksByList)
       .post('', this.createList)
       .delete('/:id', this.deleteList)
