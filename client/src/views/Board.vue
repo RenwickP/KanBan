@@ -17,6 +17,7 @@ import ListInfo from "@/components/ListInfo";
 export default {
   name: "board",
   mounted() {
+    this.$store.dispatch("getBoards");
     this.$store.dispatch("getListsByBoard", this.$props.boardId);
   },
   components: {
@@ -64,8 +65,6 @@ export default {
     },
     board() {
       return (
-        // this.$store.state.
-        //FIXME This does not work on page reload because the boards array is empty in the store
         this.$store.state.boards.find(b => b._id == this.boardId) || {
           title: "Loading..."
         }
