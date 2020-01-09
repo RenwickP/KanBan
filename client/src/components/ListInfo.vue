@@ -36,8 +36,7 @@ export default {
         description: "",
         listId: this.$props.listData.id,
         authorId: this.$store.state.user._id,
-        boardId: this.$props.listData.boardId,
-        comments: []
+        boardId: this.$props.listData.boardId
       }
     };
   },
@@ -51,10 +50,6 @@ export default {
       this.$store.dispatch("createTask", newTask);
       this.task = {
         description: ""
-        // listId: this.$props.listData.id,
-        // authorId: this.$store.state.user._id,
-        // boardId: this.$props.boardId,
-        // comments: []
       };
     }
   },

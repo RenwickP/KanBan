@@ -21,7 +21,8 @@ export default new Vuex.Store({
     boards: [],
     activeBoard: {},
     lists: [],
-    tasks: []
+    tasks: [],
+    comments: []
   },
   mutations: {
     resetState(state) {
@@ -29,7 +30,8 @@ export default new Vuex.Store({
         state.boards = [],
         state.activeBoard = {},
         state.lists = [],
-        state.tasks = []
+        state.tasks = [],
+        state.comments = []
     },
     setUser(state, user) {
       state.user = user
@@ -52,6 +54,12 @@ export default new Vuex.Store({
 
     setTask(state, data) {
       state.tasks.push(data)
+    },
+    setComment(state, data) {
+      state.comments.push(data)
+    },
+    setComments(state, payload) {
+      Vue.set(state.comments, payload.taskData.id, payload.body)
     }
   },
   actions: {
@@ -128,6 +136,7 @@ export default new Vuex.Store({
     async createTask({ commit, dispatch }, newTask) {
       let res = await api.post('tasks', newTask)
       commit('setTask', res.data)
+      dispatch("getTasks", { id: newTask.listId })
     },
     async getTasks({ commit, dispatch }, listData) {
       let res = await api.get('lists/' + listData.id + '/tasks')
@@ -140,6 +149,26 @@ export default new Vuex.Store({
     async deleteTask({ commit, dispatch }, taskData) {
       await api.delete('tasks/' + taskData._id)
       dispatch('getTasks', { id: taskData.listId })
+    },
+    //#endregion
+
+    //#region -- COMMENTS --
+    async createComment({ commit, dispatch }, comment) {
+      let res = await api.post('comments', comment)
+      commit('setComment', res.data)
+      dispatch('getComments', { id: comment.taskId })
+    },
+    async getComments({ commit, dispatch }, taskData) {
+      let res = await api.get('tasks/' + taskData.id + '/comments')
+      let payload = {
+        body: res.data,
+        taskData: taskData
+      }
+      commit('setComments', payload)
+    },
+    async deleteComment({ commit, dispatch }, commentData) {
+      await api.delete('comments/' + commentData.id)
+      dispatch('getComments', { id: commentData.taskId })
     }
     //#endregion
   }

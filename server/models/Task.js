@@ -7,7 +7,7 @@ const Task = new Schema({
   listId: { type: ObjectId, ref: 'List', required: true },
   authorId: { type: ObjectId, ref: 'User', required: true },
   boardId: { type: ObjectId, ref: 'Board', required: true },
-  comments: { type: Array }
-}, { timestamps: true })
+  // comments: { type: Array }
+}, { timestamps: true, toJSON: { virtuals: true } })
 
 export default Task

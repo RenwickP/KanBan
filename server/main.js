@@ -39,10 +39,12 @@ server.use('/account', new UserController().router)
 import BoardController from './controllers/BoardController'
 import ListsController from './controllers/ListsController'
 import TasksController from './controllers/TasksController'
+import CommentsController from './controllers/CommentsController'
 
 server.use('/api/boards', new BoardController().router)
 server.use('/api/lists', new ListsController().router)
 server.use('/api/tasks', new TasksController().router)
+server.use('/api/comments', new CommentsController().router)
 
 
 

@@ -1,11 +1,13 @@
 import express from 'express'
 import { Authorize } from '../middleware/authorize'
 import _tasksService from "../services/TasksService"
+import _commentService from "../services/CommentsService"
 
 export default class TasksController {
   constructor() {
     this.router = express.Router()
       .use(Authorize.authenticated)
+      .get('/:id/comments', this.getCommentsByTask)
       .post('', this.createTask)
       .delete('/:id', this.deleteTask)
 
@@ -29,6 +31,15 @@ export default class TasksController {
     try {
       await _tasksService.deleteTask(req.params.id)
       return res.send("deleted")
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async getCommentsByTask(req, res, next) {
+    try {
+      let data = await _commentService.getCommentsByTask(req.params.id)
+      return res.send(data)
     } catch (error) {
       next(error)
     }
