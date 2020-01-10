@@ -1,5 +1,5 @@
 <template>
-  <div class="board">
+  <div class="board container">
     <div>{{board.title}}</div>
     <form @submit.prevent="createList">
       <input v-model="list.title" type="text" placeholder="List Name" />

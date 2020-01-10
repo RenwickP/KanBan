@@ -1,9 +1,27 @@
 <template>
   <div class="task">
-    <p class="style-tasks">
-      <button @click="deleteTask" class="btn btn-warning btn-sm">X</button>
-      {{taskData.description}}
-    </p>
+    <div class="style-tasks">
+      <div class="dropdown">
+        <button @click="deleteTask" class="btn btn-warning btn-sm">X</button>
+        {{taskData.description}}
+        <button
+          class="btn btn-primary dropdown-toggle"
+          type="button"
+          data-toggle="dropdown"
+        >
+          Move Task
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu">
+          <div v-for="list in lists" :key="list.id">
+            <li>
+              <a href="#">{{list.title}}</a>
+              <button @click="moveTask(list.id)"></button>
+            </li>
+          </div>
+        </ul>
+      </div>
+    </div>
     <form @submit.prevent="createComment">
       <input v-model="comment.content" type="text" required />
       <button type="submit" class="btn btn-primary btn-sm">+Comment</button>
@@ -27,7 +45,8 @@ export default {
     return {
       comment: {
         content: "",
-        taskId: this.taskData.id
+        taskId: this.taskData.id,
+        authorId: this.taskData.authorId
       }
     };
   },
@@ -41,9 +60,20 @@ export default {
       this.comment = {
         content: ""
       };
+    },
+
+    moveTask(listId) {
+      let moveData = {
+        task: this.taskData,
+        newListId: listId
+      };
+      this.$store.dispatch("moveTask", moveData);
     }
   },
   computed: {
+    lists() {
+      return this.$store.state.lists;
+    },
     comments() {
       return this.$store.state.comments[this.taskData.id];
     }

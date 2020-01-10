@@ -9,6 +9,7 @@ export default class TasksController {
       .use(Authorize.authenticated)
       .get('/:id/comments', this.getCommentsByTask)
       .post('', this.createTask)
+      .put('/:id', this.editListId)
       .delete('/:id', this.deleteTask)
 
 
@@ -31,6 +32,14 @@ export default class TasksController {
     try {
       await _tasksService.deleteTask(req.params.id)
       return res.send("deleted")
+    } catch (error) {
+      next(error)
+    }
+  }
+  async editListId(req, res, next) {
+    try {
+      let edit = await _tasksService.editListId(req.params.id, req.body)
+      return res.send(edit)
     } catch (error) {
       next(error)
     }

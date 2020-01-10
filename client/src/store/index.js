@@ -155,6 +155,15 @@ export default new Vuex.Store({
       await api.delete('tasks/' + taskData._id)
       dispatch('getTasks', { id: taskData.listId })
     },
+    async moveTask({ commit, dispatch }, transferData) {
+      console.log(transferData);
+
+      // let res = 
+      let res = await api.put("tasks/" + transferData.task.id, { listId: transferData.newListId })
+      dispatch('getListsByBoard', transferData.task.boardId)
+      console.log("res", res)
+
+    },
     //#endregion
 
     //#region -- COMMENTS --

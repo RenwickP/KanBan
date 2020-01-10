@@ -25,6 +25,7 @@ export default class BoardsController {
     next({ status: 404, message: 'No Such Route' })
   }
 
+
   async getAll(req, res, next) {
     try {
       //only gets boards by user who is logged in

@@ -12,6 +12,10 @@ class TasksService {
     let tasks = await _repository.find({ listId: id })
     return tasks
   }
+  async editListId(taskId, edit) {
+    let data = await _repository.findOneAndUpdate({ _id: taskId }, edit, { new: true })
+    return data
+  }
 
   // async getTasksByBoardId(id) {
   //   let data = await _repository.find({ boardId: id })
