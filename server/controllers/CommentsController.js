@@ -25,8 +25,10 @@ export default class CommentsController {
   }
   async deleteComment(req, res, next) {
     try {
-      await _commentsService.deleteComment(req.params.id)
-      return res.send("deleted")
+      if (req.body.authorId = req.session.uid) {
+        await _commentsService.deleteComment(req.params.id)
+        return res.send("deleted")
+      }
     } catch (error) {
       next(error)
     }

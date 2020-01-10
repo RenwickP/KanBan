@@ -7,9 +7,12 @@
       <input type="text" placeholder="description" v-model="newBoard.description" />
       <button type="submit">Create Board</button>
     </form>
-    <div v-for="board in boards" :key="board._id">
-      <router-link :to="{name: 'board', params: {boardId: board._id}}">{{board.title}}</router-link>
+    <div class="text-left" v-for="board in boards" :key="board._id">
       <button @click="deleteBoard(board._id)" class="btn btn-secondary">Delete</button>
+      <router-link
+        class="text-dark"
+        :to="{name: 'board', params: {boardId: board._id}}"
+      >{{board.title}}</router-link>
     </div>
   </div>
 </template>
@@ -47,3 +50,9 @@ export default {
   }
 };
 </script>
+
+<style>
+body {
+  background-image: url("https://images.unsplash.com/photo-1578167597239-14f8fc680b6b?ixlib=rb-1.2.1&auto=format&fit=crop&w=2156&q=80");
+}
+</style>

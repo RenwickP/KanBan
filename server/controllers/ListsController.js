@@ -28,8 +28,10 @@ export default class ListsController {
   }
   async deleteList(req, res, next) {
     try {
-      await _listService.deleteList(req.params.id)
-      return res.send("deleted")
+      if (req.body.authorId = req.session.uid) {
+        await _listService.deleteList(req.params.id)
+        return res.send("deleted")
+      }
     } catch (error) {
       next(error)
     }

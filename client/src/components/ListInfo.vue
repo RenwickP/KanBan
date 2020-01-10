@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="card" style="width: 18rem;">
+    <div class="card mt-5" style="width: 18rem;">
       <div class="card-body">
         <!-- <div v-for="ld in listData" :key="ld.id"> -->
         <h5 class="card-title border">{{listData.title}}</h5>
@@ -10,7 +10,7 @@
         </form>
         <!-- </div> -->
       </div>
-      <button @click="deleteList(listData)" class="btn btn-warning">X</button>
+      <button @click="deleteList(listData)" class="btn btn-warning">Delete List</button>
       <div v-for="task in tasks" :key="task.id">
         <task :taskData="task" />
       </div>

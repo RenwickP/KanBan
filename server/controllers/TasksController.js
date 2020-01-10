@@ -30,8 +30,10 @@ export default class TasksController {
   }
   async deleteTask(req, res, next) {
     try {
-      await _tasksService.deleteTask(req.params.id)
-      return res.send("deleted")
+      if (req.body.authorId = req.session.uid) {
+        await _tasksService.deleteTask(req.params.id)
+        return res.send("deleted")
+      }
     } catch (error) {
       next(error)
     }

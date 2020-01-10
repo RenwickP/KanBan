@@ -1,11 +1,11 @@
 <template>
-  <div class="task">
+  <div class>
     <div class="style-tasks">
       <div class="dropdown">
-        <button @click="deleteTask" class="btn btn-warning btn-sm">X</button>
+        <button @click="deleteTask" class="delete-task btn btn-warning btn-sm">X</button>
         {{taskData.description}}
         <button
-          class="btn btn-primary dropdown-toggle"
+          class="btn btn-primary btn-sm dropdown-toggle"
           type="button"
           data-toggle="dropdown"
         >
@@ -14,10 +14,7 @@
         </button>
         <ul class="dropdown-menu">
           <div v-for="list in lists" :key="list.id">
-            <li>
-              <a href="#">{{list.title}}</a>
-              <button @click="moveTask(list.id)"></button>
-            </li>
+            <button class="dropdown-item" @click="moveTask(list.id)">{{list.title}}</button>
           </div>
         </ul>
       </div>
@@ -88,5 +85,9 @@ export default {
 <style>
 .style-tasks {
   text-align: left;
+}
+
+.delete-task {
+  font-size: 12px;
 }
 </style>
