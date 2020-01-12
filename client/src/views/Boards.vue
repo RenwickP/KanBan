@@ -7,7 +7,7 @@
       <input type="text" placeholder="description" v-model="newBoard.description" />
       <button type="submit">Create Board</button>
     </form>
-    <div class="text-left" v-for="board in boards" :key="board._id">
+    <div class="text-left ml-5 mt-5" v-for="board in boards" :key="board._id">
       <button @click="deleteBoard(board._id)" class="btn btn-secondary">Delete</button>
       <router-link
         class="text-dark"

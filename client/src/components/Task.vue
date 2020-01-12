@@ -1,15 +1,13 @@
 <template>
   <div class>
     <div class="style-tasks">
+      <div class="row">
+        <h5 class="col text-center">{{taskData.description}}</h5>
+      </div>
       <div class="dropdown">
         <button @click="deleteTask" class="delete-task btn btn-warning btn-sm">X</button>
-        {{taskData.description}}
-        <button
-          class="btn btn-primary btn-sm dropdown-toggle"
-          type="button"
-          data-toggle="dropdown"
-        >
-          Move Task
+        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+          Move
           <span class="caret"></span>
         </button>
         <ul class="dropdown-menu">
@@ -19,12 +17,14 @@
         </ul>
       </div>
     </div>
-    <form @submit.prevent="createComment">
-      <input v-model="comment.content" type="text" required />
-      <button type="submit" class="btn btn-primary btn-sm">+Comment</button>
+    <form @submit.prevent="createComment" class="form-body">
+      <input v-model="comment.content" type="text" placeholder="Add comment" required />
+      <button type="submit" class="btn btn-primary btn-sm">+</button>
     </form>
     <div v-for="comment in comments" :key="comment.id">
-      <comment :commentData="comment" />
+      <div class>
+        <comment class :commentData="comment" />
+      </div>
     </div>
   </div>
 </template>
@@ -89,5 +89,17 @@ export default {
 
 .delete-task {
   font-size: 12px;
+}
+
+.form-body {
+  background-color: grey;
+}
+
+.dropdown {
+  background-color: grey;
+}
+
+.beige {
+  background-color: beige;
 }
 </style>

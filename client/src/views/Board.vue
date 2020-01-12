@@ -1,8 +1,12 @@
 <template>
-  <div class="board container">
+  <div class="board container mt-5">
     <div class="row">
       <div class="col-12">
+        <div class="text-left">
+          <router-link class="home-button" :to="{ path: '/' }">Home</router-link>
+        </div>
         <div>{{board.title}}</div>
+
         <form @submit.prevent="createList">
           <input v-model="list.title" type="text" placeholder="List Name" />
           <button class="btn btn-success">Add</button>
@@ -80,3 +84,9 @@ export default {
   props: ["boardId"]
 };
 </script>
+<style scoped>
+.home-button {
+  font-size: 20px;
+  color: white;
+}
+</style>

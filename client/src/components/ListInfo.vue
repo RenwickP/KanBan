@@ -3,16 +3,18 @@
     <div class="card mt-5" style="width: 18rem;">
       <div class="card-body">
         <!-- <div v-for="ld in listData" :key="ld.id"> -->
-        <h5 class="card-title border">{{listData.title}}</h5>
+        <h5 class="card-title border list-title">{{listData.title}}</h5>
         <form @submit.prevent="createTask">
-          <input v-model="task.description" type="text" placeholder="Task" />
+          <input v-model="task.description" type="text" placeholder="Add task" />
           <button type="submit" class="btn btn-secondary">+</button>
         </form>
         <!-- </div> -->
       </div>
       <button @click="deleteList(listData)" class="btn btn-warning">Delete List</button>
       <div v-for="task in tasks" :key="task.id">
+        <!-- <div class="row"> -->
         <task :taskData="task" />
+        <!-- </div> -->
       </div>
     </div>
   </div>
@@ -62,4 +64,11 @@ export default {
 </script>
 
 <style scoped>
+.list-title {
+  background-color: beige;
+}
+
+.card-body {
+  background-color: grey;
+}
 </style>
