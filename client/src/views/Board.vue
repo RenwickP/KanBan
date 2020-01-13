@@ -46,9 +46,7 @@ export default {
     createList() {
       let newList = { ...this.list };
       this.$store.dispatch("createList", newList);
-      this.list = {
-        title: ""
-      };
+      this.list.title = "";
     }
 
     // createTask(createTask) {

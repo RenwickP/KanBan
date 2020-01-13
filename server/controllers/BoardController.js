@@ -59,10 +59,8 @@ export default class BoardsController {
 
   async delete(req, res, next) {
     try {
-      if (req.body.authorId = req.session.uid) {
-        await _boardService.delete(req.params.id, req.session.uid)
-        return res.send("Successfully deleted")
-      }
+      await _boardService.delete(req.params.id, req.session.uid)
+      return res.send("Successfully deleted")
     } catch (error) { next(error) }
   }
 

@@ -50,9 +50,7 @@ export default {
     createTask() {
       let newTask = { ...this.task };
       this.$store.dispatch("createTask", newTask);
-      this.task = {
-        description: ""
-      };
+      this.task.description = "";
     }
   },
   computed: {

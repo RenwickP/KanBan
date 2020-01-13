@@ -23,6 +23,7 @@ class BoardService {
   }
 
   async edit(id, userId, update) {
+    delete update.authorId
     let data = await _repository.findOneAndUpdate({ _id: id, authorId: userId }, update, { new: true })
     if (!data) {
       throw new ApiError("Invalid ID or you do not own this board", 400);

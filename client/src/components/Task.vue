@@ -54,9 +54,7 @@ export default {
     createComment() {
       let newComment = { ...this.comment };
       this.$store.dispatch("createComment", newComment);
-      this.comment = {
-        content: ""
-      };
+      this.comment.content = "";
     },
 
     moveTask(listId) {
